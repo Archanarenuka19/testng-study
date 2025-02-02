@@ -1,39 +1,58 @@
 package ca.qaguru.lib;
 
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.service.ExtentTestManager;
+import com.aventstack.extentreports.testng.listener.ExtentITestListenerClassAdapter;
 import org.testng.annotations.*;
 
+@Listeners(ExtentITestListenerClassAdapter.class)// Adapter will integrate testng results with extent report
 public class TestBase {
+    protected String browser;
     @BeforeTest
-    public void beforeTest(){
+    protected void beforeTest(){
+
         System.out.println("Before Test");
     }
     @BeforeMethod
-    public void beforeMethod(){
+    protected void beforeMethod(){
+
         System.out.println("Before Method");
     }
     @AfterMethod
-    public void afterMethod(){
+    protected void afterMethod(){
+
         System.out.println("After Method");
     }
     @AfterTest
-    public void afterTest(){
+    protected void afterTest(){
+
         System.out.println("After Test");
     }
    @Parameters({"browser"})
     @BeforeClass
     public void beforeClass( String browser){
+        this.browser=browser;
         System.out.println("Before Class:"+browser);
            }
     @AfterClass
-    public void afterClass(){
+    protected void afterClass(){
+
         System.out.println("After Class");
     }
     @BeforeSuite
-    public void beforeSuite(){
+    protected void beforeSuite(){
+
         System.out.println("Before Suite");
     }
     @AfterSuite
-    public void afterSuite(){
+    protected void afterSuite(){
+
         System.out.println("After Suite");
+    }
+    protected void log(Status status, String message){
+        ExtentTestManager.getTest().log(status,message);
+    }
+    protected void logBroswser(){
+        log(Status.INFO,"Launching the browser-"+this.browser);
     }
 }
