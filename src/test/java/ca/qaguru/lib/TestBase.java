@@ -30,9 +30,11 @@ public class TestBase {
     }
    @Parameters({"browser"})
     @BeforeClass
-    public void beforeClass( String browser){
-        this.browser=browser;
-        System.out.println("Before Class:"+browser);
+    public void beforeClass( @Optional("chrome") String browser){
+       System.out.println("Before Class");
+       System.out.println("Browser :"+browser);
+       this.browser=browser;
+
            }
     @AfterClass
     protected void afterClass(){
@@ -50,6 +52,7 @@ public class TestBase {
         System.out.println("After Suite");
     }
     protected void log(Status status, String message){
+
         ExtentTestManager.getTest().log(status,message);
     }
     protected void logBroswser(){
